@@ -91,13 +91,12 @@ def sigmoid_function(num):
 
 #os.system("python /public/DUAN/methylation/manhattan.py "+result_file1_name+" "+manhattan_file+" "+slice_file)
 #os.system("/usr/bin/Rscript /public/DUAN/methylation/dmr.R "+cov_files+" "+sample_name+" "+group+" "+result_file_name+" "+result_file1_name)
-
+os.system("python /public/DUAN/methylation/manhattan.py "+result_file1_name+" "+manhattan_file+" "+slice_file)
 #开始统计检验流程，核心算法为wald检验   
 if not Path(result_file_name).exists():
     os.system("/usr/bin/Rscript /public/DUAN/methylation/dmr.R "+cov_files+" "+sample_name+" "+group+" "+result_file_name+" "+result_file1_name)
 if not Path(manhattan_file).exists():
     os.system("python /public/DUAN/methylation/manhattan.py "+result_file1_name+" "+manhattan_file+" "+slice_file) #开始绘制Manhattan和10等份基因坐标同时处理
-
 os.system("/usr/bin/Rscript /public/DUAN/methylation/manhattan.r "+manhattan_file+" "+index+"manhattan.png")
 
 
