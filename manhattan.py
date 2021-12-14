@@ -1,6 +1,7 @@
 import sys
 import shelve
 import matplotlib.pyplot as plt
+import numpy as np
 in_file = sys.argv[1]
 out_file = sys.argv[2]
 plot_file = sys.argv[3]
