@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 import os
 import sys
 import time
@@ -10,9 +11,9 @@ import shelve
 files = sys.argv[1].split('~')  #第一个命令行变量，样本名称，用,分隔，如sample1,sample2
 group = sys.argv[2]  #第二个命令行变量，样本的分组信息，用;分隔，如sample1,sample2DUANsample3,sample4
 index = sys.argv[3] #结果路径
-reid = sys.argv[4] #结果路径
+reid = sys.argv[4] #任务id
 os.system("mkdir -p "+index)
-
+os.system("export LD_LIBRARY_PATH=/usr/local/lib:/home/wangxiaoqi/miniconda3/lib")
 #示例程序 python methylation.py V350012588_L01_HUMkraqH001415-13,C10Ca-18R11313 V350012588_L01_HUMkraqH001415-13DUANC10Ca-18R11313
 start = time.time() 
 path="/home/DUAN/methylation/"
@@ -31,7 +32,8 @@ for fil in files:
         file3 = path+"analysis/result/"+fil+"/"+fil+"_R1_pre_bismark_bt2_pe.deduplicated.sam"
         file4 = path+"analysis/result/"+fil+".cov"
         if not Path(file1).exists():
-            os.system("fastp -w 8 -i "+result[0]+" -o "+path+"analysis/pre_data/"+fil+"_R1_pre "+"-I "+result[1]+" -O "+path+"analysis/pre_data/"+fil+"_R2_pre -h "+index+fil+".html") 
+            os.system("fastp -w 8 -i "+result[0]+" -o "+path+"analysis/pre_data/"+fil+"_R1_pre "+"-I "+result[1]+" -O "+path+"analysis/pre_data/"+fil+"_R2_pre -h "+path+fil+".html") 
+        os.system("cp "+path+fil+".html "+index)
         if not Path(file2).exists():
             os.system("/public/DUAN/methylation/bismark_ref/bismark --temp_dir /home/DUAN --bowtie2 -p 4 --path_to_bowtie /public/DUAN/methylation/bismark_ref/bowtie2-2.3.4.2-linux-x86_64 -N 0 -L 20 --quiet --un --ambiguous --sam -o "+path+"analysis/result/"+fil+" /home/lvhongyi/lvhy/reference/human/ensembl_hg19/bismark_ref -1 "+path+"analysis/pre_data/"+fil+"_R1_pre"+" -2 "+path+"analysis/pre_data/"+fil+"_R2_pre")
             os.system("echo "+fil+" > "+index+"mapping.txt")
@@ -69,7 +71,7 @@ if len(cov)!=2:
         df = pd.DataFrame(dataframe_dic,index=[i.split("/")[-1].split(".")[0] for i in cov])
         df = df.iloc[:,np.random.randint(1,df.shape[-1],20000)]
         df.to_csv(pca_file)
-        os.system("/usr/bin/Rscript /public/DUAN/methylation/pca.R "+pca_file+" "+index+"pca.png")
+        os.system("Rscript /public/DUAN/methylation/pca.R "+pca_file+" "+index+"pca.png")
 
 cov_files = ",".join([path+"analysis/result/"+i for i in cov])
 #cov_files = "/home/DUAN/methylation/analysis/result/293FT_1.fq.gz.cov,/home/DUAN/methylation/analysis/result/J-H-5_1.fq.gz.cov"
@@ -91,13 +93,13 @@ def sigmoid_function(num):
 
 #os.system("python /public/DUAN/methylation/manhattan.py "+result_file1_name+" "+manhattan_file+" "+slice_file)
 #os.system("/usr/bin/Rscript /public/DUAN/methylation/dmr.R "+cov_files+" "+sample_name+" "+group+" "+result_file_name+" "+result_file1_name)
-os.system("python /public/DUAN/methylation/manhattan.py "+result_file1_name+" "+manhattan_file+" "+slice_file)
+# os.system("python /public/DUAN/methylation/manhattan.py "+result_file1_name+" "+manhattan_file+" "+slice_file)
 #开始统计检验流程，核心算法为wald检验   
 if not Path(result_file_name).exists():
-    os.system("/usr/bin/Rscript /public/DUAN/methylation/dmr.R "+cov_files+" "+sample_name+" "+group+" "+result_file_name+" "+result_file1_name)
-if not Path(manhattan_file).exists():
+    os.system("Rscript /public/DUAN/methylation/dmr.R "+cov_files+" "+sample_name+" "+group+" "+result_file_name+" "+result_file1_name)
+if not Path(index+"manhattan.png").exists():
     os.system("python /public/DUAN/methylation/manhattan.py "+result_file1_name+" "+manhattan_file+" "+slice_file) #开始绘制Manhattan和10等份基因坐标同时处理
-os.system("/usr/bin/Rscript /public/DUAN/methylation/manhattan.r "+manhattan_file+" "+index+"manhattan.png")
+    os.system("Rscript /public/DUAN/methylation/manhattan.r "+manhattan_file+" "+index+"manhattan.png")
 
 
 os.system("sed -i '"+'s/"/'+"/g' "+result_file_name)
