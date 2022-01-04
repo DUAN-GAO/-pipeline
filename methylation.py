@@ -31,19 +31,22 @@ for fil in files:
         file2 = path+"analysis/result/"+fil+"/"+fil+"_R1_pre_bismark_bt2_pe.sam"
         file3 = path+"analysis/result/"+fil+"/"+fil+"_R1_pre_bismark_bt2_pe.deduplicated.sam"
         file4 = path+"analysis/result/"+fil+".cov"
+        # os.system("fastp -w 8 -i "+path+"analysis/pre_data/"+fil+"_R1_pre "+" -o "+path+"/home/DUAN"+fil+"_R1_pre "+"-I "+path+"analysis/pre_data/"+fil+"_R2_pre "+" -O "+path+"/home/DUAN"+fil+"_R2_pre "+"-h "+path+fil+".html") 
         if not Path(file1).exists():
             os.system("fastp -w 8 -i "+result[0]+" -o "+path+"analysis/pre_data/"+fil+"_R1_pre "+"-I "+result[1]+" -O "+path+"analysis/pre_data/"+fil+"_R2_pre -h "+path+fil+".html") 
+        print("fastp -w 8 -i "+path+"analysis/pre_data/"+fil+"_R1_pre "+" -o "+path+"/home/DUAN"+fil+"_R1_pre "+"-I "+path+"analysis/pre_data/"+fil+"_R2_pre "+" -O "+path+"/home/DUAN"+fil+"_R2_pre "+"-h "+path+fil+".html")
         os.system("cp "+path+fil+".html "+index)
         if not Path(file2).exists():
             os.system("/public/DUAN/methylation/bismark_ref/bismark --temp_dir /home/DUAN --bowtie2 -p 4 --path_to_bowtie /public/DUAN/methylation/bismark_ref/bowtie2-2.3.4.2-linux-x86_64 -N 0 -L 20 --quiet --un --ambiguous --sam -o "+path+"analysis/result/"+fil+" /home/lvhongyi/lvhy/reference/human/ensembl_hg19/bismark_ref -1 "+path+"analysis/pre_data/"+fil+"_R1_pre"+" -2 "+path+"analysis/pre_data/"+fil+"_R2_pre")
-            os.system("echo "+fil+" > "+index+"mapping.txt")
-            os.system("grep -w Mapping "+path+"analysis/result/"+fil+"/*_PE_report.txt >> "+index+"mapping.txt")
+        os.system("echo "+fil+" >> "+index+"mapping.txt")
+        os.system("grep -w Mapping "+path+"analysis/result/"+fil+"/*_PE_report.txt >> "+index+"mapping.txt")
         if not Path(file3).exists():
             os.system("/public/DUAN/methylation/deduplicate_bismark -p "+path+"analysis/result/"+fil+"/"+fil+"_R1_pre_bismark_bt2_pe.sam"+" --output_dir "+path+"analysis/result/"+fil)
         if not Path(file4).exists():
             os.system("python /public/DUAN/DMR/extract_CpG_data.py -i "+path+"analysis/result/"+fil+"/"+fil+"_R1_pre_bismark_bt2_pe.deduplicated.sam"+ " -o "+path+"analysis/result/"+fil+".cov")
         cov.append(fil+".cov")
 print(cov)
+exit(0)
 #cov = ["/home/DUAN/methylation/analysis/result/293FT_1.fq.gz.cov","/home/DUAN/methylation/analysis/result/J-H-10_1.fq.gz.cov","/home/DUAN/methylation/analysis/result/J-H-5_1.fq.gz.cov"]  #开始从多个cov文件中读取甲基化信息整合到dataframe绘制投影
 count = 1
 names = globals()
