@@ -1,4 +1,3 @@
-BiocManager::install("EnhancedVolcano")
 library(EnhancedVolcano)
 Args <- commandArgs()
 fil <- Args[6]
@@ -10,30 +9,14 @@ res <- read.table(fil,
                   check.names=F,
                   quote="")  
 png(path)
-# EnhancedVolcano(res,
-#     lab = rownames(res),
-#     x = 'log2(Fold_change)',
-#     y = 'p-value',
-#     xlim = c(-4, 4),
-#     pCutoff = 10e-3,
-#     FCcutoff = 1.5,
-#     transcriptPointSize = 3.0,
-#     transcriptLabSize = 3.0,
-#     colAlpha = 1)
-
-
 keyvals <- rep('green', nrow(res))
-
- # set the base name/label as 'Mid'
- names(keyvals) <- rep('Mid', nrow(res))
-
- # fold change > 1.5 & p-value < 0.0001 为高表达
- keyvals[which(res$"log2(Fold_change)" > 1.5 & res$"p-value"<0.0001)] <- 'gold'
- names(keyvals)[which(res$"log2(Fold_change)" > 1.5 & res$"p-value"<0.0001)] <- 'high'
-
- # fold change < -1.5 & p-value < 0.0001为低表达
- keyvals[which(res$"log2(Fold_change)" < -1.5 & res$"p-value"<0.0001)] <- 'royalblue'
- names(keyvals)[which(res$"log2(Fold_change)" < -1.5 & res$"p-value"<0.0001)] <- 'low'
+names(keyvals) <- rep('Mid', nrow(res))
+# fold change > 1.5 & p-value < 0.0001 为高表达
+keyvals[which(res$"log2(Fold_change)" > 1.5 & res$"p-value"<0.0001)] <- 'gold'
+names(keyvals)[which(res$"log2(Fold_change)" > 1.5 & res$"p-value"<0.0001)] <- 'high'
+# fold change < -1.5 & p-value < 0.0001为低表达
+keyvals[which(res$"log2(Fold_change)" < -1.5 & res$"p-value"<0.0001)] <- 'royalblue'
+names(keyvals)[which(res$"log2(Fold_change)" < -1.5 & res$"p-value"<0.0001)] <- 'low'
 
 EnhancedVolcano(res,
     lab = rownames(res),

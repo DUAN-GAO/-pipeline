@@ -1,3 +1,4 @@
+.libPaths()
 library(DSS)
 library(bsseq)
 Args <- commandArgs()
@@ -16,8 +17,6 @@ if(grepl(",", group[2], fixed = TRUE)){
 } else {
    group2 = group[2]
 }
-print(group1)
-print(group2)
 result_file<- Args[9] #获取结果文件名字信息
 result_file1<- Args[10] #获取结果文件名字信息
 list_names<-''
@@ -30,15 +29,12 @@ for(i in 1:length(file_names)){ #生成dat1，dat2变量存储甲基化cov信息
     else{
         list_names<-paste(list_names,name,sep = ",")
     }
-    
     assign(name,read.table(file_names[i], header = T,col.names=c("chr","pos","N","X")))
     lis[[i]]<-get(paste("dat",as.character(i),sep = ""))
-    
 }
 BSobj <- makeBSseqData(lis,bseq_names) #主分析流程
 dmlResult <- DMLtest(BSobj, group1 = group1, group2 =group2, smoothing = T)
 dmls = callDML(dmlResult,p.threshold = 1) #,p.threshold = 0.001,delta =  0.1
 write.table(dmls,sep="\t",row.names =FALSE,file=result_file1)
-
 dmrs = callDMR(dmlResult ,p.threshold = 0.05,delta = 0.1) 
 write.table(dmrs,sep="\t",row.names =FALSE,file=result_file)
