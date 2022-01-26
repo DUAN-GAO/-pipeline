@@ -1,9 +1,9 @@
 甲基化生信分析pipeline – 甲基化测序的一键自动生信分析流程
 =======================================
 ## 甲基化基本概念：
-    [甲基化概念](https://www.thermofisher.cn/cn/zh/home/life-science/epigenetics-noncoding-rna-research/methylation-analysis-.html)
+[甲基化概念](https://www.thermofisher.cn/cn/zh/home/life-science/epigenetics-noncoding-rna-research/methylation-analysis-.html)
 ## 下载公共数据库GEO的甲基化测序数据：
-    [甲基化概念](https://www.ncbi.nlm.nih.gov/gds/?term=methylation>)
+[GEO甲基化数据](https://www.ncbi.nlm.nih.gov/gds/?term=methylation>)
 ## 主要功能：
 -    质量控制-fastp
 -    甲基化reads比对-bismark
