@@ -43,10 +43,10 @@
     python methylation.py /home/DUAN/methyl_rawdata/yinle/293FT_1.fq.gz,/home/DUAN/methyl_rawdata/yinle/293FT_2.fq.gz~/home/DUAN/methyl_rawdata/yinle/293FT-HOSK_1.fq.gz,/home/DUAN/methyl_rawdata/yinle/293FT-HOSK_2.fq.gz~/home/DUAN/methyl_rawdata/yinle/J-H-0_1.fq.gz,/home/DUAN/methyl_rawdata/yinle/J-H-0_2.fq.gz~/home/DUAN/methyl_rawdata/yinle/J-H-5_1.fq.gz,/home/DUAN/methyl_rawdata/yinle/J-H-5_2.fq.gz~/home/DUAN/methyl_rawdata/yinle/J-H-10_1.fq.gz,/home/DUAN/methyl_rawdata/yinle/J-H-10_2.fq.gz 293FT,293FT-HOSKDUANJ-H-0,J-H-5,J-H-10 /public/mlrna_seq/sample_result/16/ 16
     ```
 ## 部分运行结果展示：
-    ![](https://gitee.com/duangao/methylation/blob/master/sample_result/heatmap.png)
-    ![](https://gitee.com/duangao/methylation/blob/master/sample_result/manhattan.png)
-    ![](https://gitee.com/duangao/methylation/blob/master/sample_result/slice.png)
-    ![](https://gitee.com/duangao/methylation/blob/master/sample_result/volcano.png)
+    ![img](https://gitee.com/duangao/methylation/blob/master/sample_result/heatmap.png)
+    ![img](https://gitee.com/duangao/methylation/blob/master/sample_result/manhattan.png)
+    ![img](https://gitee.com/duangao/methylation/blob/master/sample_result/slice.png)
+    ![img](https://gitee.com/duangao/methylation/blob/master/sample_result/volcano.png)
 
     
     
