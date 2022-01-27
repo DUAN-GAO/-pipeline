@@ -5,7 +5,7 @@
 ## 下载公共数据库GEO的甲基化测序数据：
 [GEO甲基化数据](https://www.ncbi.nlm.nih.gov/gds/?term=methylation>)
 ## 项目介绍：
-#### 甲基化市面开源软件繁多且分析方法成熟，但可用的一键分析pipeline不多，多数为零散代码块。本项目提供一键迁移部署甲基化分析pipeline，可在所有OS上运行，作者会定期维护更新function
+#### 甲基化市面开源软件繁多且分析方法成熟，但可用的一键分析pipeline不多，多数为零散代码块。本项目提供一键迁移部署甲基化分析pipeline，在Linux环境上运行，作者会定期维护更新function
 ## 主要功能：
 -    质量控制-fastp
 -    甲基化reads比对-bismark
